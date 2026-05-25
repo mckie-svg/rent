@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insurance Policy - RydeMyCar</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .policy-container { max-width: 800px; margin: 4rem auto; padding: 0 2rem; }
+  .policy-section { margin-bottom: 3rem; }
+  .policy-header { margin-bottom: 2rem; border-bottom: 2px solid var(--gold); padding-bottom: 1rem; }
+  h2 { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; letter-spacing: 1px; color: var(--black); }
+  h3 { margin-bottom: 1rem; font-weight: 700; color: var(--black); }
+  p { line-height: 1.8; color: var(--text-muted); margin-bottom: 1rem; font-size: 15px; }
+  .insurance-table { width: 100%; border-collapse: collapse; margin-top: 1rem; background: #fff; border-radius: 12px; overflow: hidden; border: 1px solid var(--warm-gray); }
+  .insurance-table th, .insurance-table td { padding: 1.25rem; text-align: left; border-bottom: 1px solid var(--warm-gray); font-size: 14px; }
+  .insurance-table th { background: var(--section-bg); font-weight: 700; text-transform: uppercase; font-size: 11px; letter-spacing: 1px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html">
+    <img src="image/rydemycar.png" alt="RydeMyCar" class="logo-img">
+  </a>
+</nav>
+
+<main class="policy-container">
+  <div class="policy-header">
+    <h2>Insurance & Protection</h2>
+    <p>We've partnered with leading providers to ensure you're covered on every Ryde.</p>
+  </div>
+
+  <section class="policy-section">
+    <h3>Our Protection Tiers</h3>
+    <p>Every rental includes our Basic Protection plan. You can choose to upgrade to Premium Protection during checkout for lower deductibles and additional peace of mind.</p>
+    
+    <table class="insurance-table">
+      <thead>
+        <tr><th>Feature</th><th>Basic</th><th>Premium</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Liability Coverage</td><td>Included</td><td>Included</td></tr>
+        <tr><td>Collision Damage</td><td>Min. Coverage</td><td>Full Coverage</td></tr>
+        <tr><td>Deductible</td><td>$2,000</td><td>$0</td></tr>
+        <tr><td>Roadside Assistance</td><td>Pay-per-use</td><td>Unlimited</td></tr>
+        <tr><td>Theft Protection</td><td>Included</td><td>Included</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="policy-section">
+    <h3>Exclusions</h3>
+    <p>Please note that insurance coverage may be voided if the vehicle is used in violation of our Terms of Service. Key exclusions include:</p>
+    <ul style="padding-left: 20px; line-height: 2; color: var(--text-muted); font-size: 14px;">
+      <li>Off-road driving on non-paved surfaces.</li>
+      <li>Driving under the influence of drugs or alcohol.</li>
+      <li>Using the vehicle for commercial purposes or racing.</li>
+      <li>Allowing unverified drivers to operate the vehicle.</li>
+    </ul>
+  </section>
+
+  <section class="policy-section" style="background: var(--black); color: white; padding: 2rem; border-radius: 16px;">
+    <h3 style="color: var(--gold);">How to make a claim?</h3>
+    <p style="color: rgba(255,255,255,0.7);">In the event of an accident or damage, your safety is our priority.</p>
+    <ol style="padding-left: 20px; line-height: 1.8; color: rgba(255,255,255,0.7); font-size: 14px;">
+      <li>Ensure everyone is safe and contact local authorities if necessary.</li>
+      <li>Document the damage with clear photos from multiple angles.</li>
+      <li>Notify the Host immediately through our in-app messaging.</li>
+      <li>Contact our 24/7 Claims Support team at <strong>+1 (800) RYDE-SAFE</strong>.</li>
+      <li>File an official report through the "My Bookings" section of your dashboard.</li>
+    </ol>
+  </section>
+
+  <div style="text-align: center; margin-top: 4rem;">
+    <a href="index.html" class="btn-primary">Back to Homepage</a>
+  </div>
+</main>
+
+<footer style="margin-top: 4rem;">
+  <div class="footer-logo">RydeMyCar</div>
+  <div style="font-size:12px;">© 2025 RydeMyCar. All rights reserved.</div>
+</footer>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>lucide.createIcons();</script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Portal - RydeMyCar</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="shortcut icon" href="image/rydemycar.png" type="image/x-icon">
+<link rel="stylesheet" href="style.css">
+<style>
+  body { background: #111; display: flex; align-items: center; justify-content: center; min-height: 100vh; color: #fff; }
+  .admin-login-card {
+    background: #fff;
+    width: 100%;
+    max-width: 400px;
+    padding: 3rem;
+    border-radius: 20px;
+    color: var(--black);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  }
+  .form-field input { background: var(--section-bg); border: 1.5px solid var(--warm-gray); }
+  .form-field input:focus { border-color: var(--black); }
+  .admin-title { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; text-align: center; margin-bottom: 2rem; }
+  .admin-title span { color: var(--gold); }
+  .btn-admin {
+    width: 100%;
+    background: var(--black);
+    color: #fff;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .btn-admin:hover { background: var(--gold); color: var(--black); }
+</style>
+</head>
+<body>
+
+<div class="admin-login-card fade-in">
+  <div class="admin-title">Admin<span>Portal</span></div>
+  <p style="text-align: center; font-size: 13px; color: var(--text-muted); margin-bottom: 2rem;">Secure Internal Access Only</p>
+  
+  <form id="adminForm" onsubmit="handleAdminLogin(event)">
+    <div class="form-field">
+      <label style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Employee ID</label>
+      <input type="text" placeholder="ADM-000-000" required>
+    </div>
+    <div class="form-field">
+      <label style="font-size: 11px; font-weight: 700; text-transform: uppercase;">Security Key</label>
+      <input type="password" placeholder="••••••••" required>
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 1.5rem;">
+        <input type="checkbox" required>
+        <span style="font-size: 11px;">I confirm this is a secure administrative terminal.</span>
+    </div>
+    <button type="submit" class="btn-admin">Authorize Access</button>
+  </form>
+  
+  <div style="text-align: center; margin-top: 2rem;">
+    <a href="index.html" style="font-size: 12px; color: var(--text-muted); text-decoration: none;">Return to Main Site</a>
+  </div>
+</div>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+  lucide.createIcons();
+  function handleAdminLogin(e) {
+    e.preventDefault();
+    // Simulate secure session storage
+    localStorage.setItem('adminSession', 'active');
+    window.location.href = 'admin-dashboard.html';
+  }
+</script>
+</body>
+</html>

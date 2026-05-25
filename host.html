@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Host Dashboard - RydeMyCar</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="shortcut icon" href="image/rydemycar.png" type="image/x-icon">
+<link rel="stylesheet" href="style.css">
+<style>
+  :root {
+    --sidebar-width: 260px;
+  }
+  body {
+    background-color: var(--off-white);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  .dashboard-wrapper {
+    display: flex;
+    flex: 1;
+  }
+  /* Sidebar Styling */
+  .sidebar {
+    width: var(--sidebar-width);
+    background: #fff;
+    border-right: 1px solid var(--warm-gray);
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.2s;
+  }
+  .sidebar-link:hover, .sidebar-link.active {
+    background: var(--section-bg);
+    color: var(--black);
+  }
+  .sidebar-link.active {
+    background: var(--gold);
+    color: var(--black);
+  }
+
+  /* Main Content */
+  .main-content {
+    flex: 1;
+    padding: 2rem 3rem;
+  }
+  .dash-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  .dash-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+  }
+  .btn-add-vehicle {
+    background: var(--black);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .btn-add-vehicle:hover {
+    background: var(--gold);
+    color: var(--black);
+  }
+
+  /* Stats Grid */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+  .stat-card {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 16px;
+    border: 1px solid var(--warm-gray);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+  }
+  .stat-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .stat-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--black);
+  }
+
+  /* Section Cards */
+  .dash-section {
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid var(--warm-gray);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .section-heading {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  /* Content Section Visibility */
+  .content-section {
+    display: none;
+    animation: fadeIn 0.3s ease-out;
+  }
+  .content-section.active {
+    display: block;
+  }
+  /* Sub-steps for listing form */
+  .listing-step { display: none; }
+  .listing-step.active { display: block; animation: fadeIn 0.3s ease-out; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Table Styling for Features */
+  .dash-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  .dash-table th, .dash-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--warm-gray);
+    font-size: 14px;
+  }
+  .dash-table th {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+  }
+  .dash-table img {
+    width: 60px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+    background: var(--warm-gray);
+  }
+  .status-pill {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    background: var(--warm-gray);
+  }
+  .status-pill.active { background: #e6f4ea; color: #1e7e34; }
+  .status-pill.pending { background: #fff4e5; color: #664d03; }
+
+  /* Multi-step Form UI */
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .form-group { margin-bottom: 1.25rem; }
+  .form-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--black);
+  }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1.5px solid var(--warm-gray);
+    border-radius: 8px;
+    font-family: inherit;
+    outline: none;
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .feature-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+  }
+  .upload-area {
+    border: 2px dashed var(--warm-gray);
+    padding: 3rem;
+    text-align: center;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .upload-area:hover { border-color: var(--gold); }
+  .map-placeholder {
+    height: 250px;
+    background: #e9ecef;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    margin-top: 10px;
+  }
+  .form-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--warm-gray);
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 1024px) {
+    .dashboard-wrapper {
+      flex-direction: column;
+    }
+    .sidebar {
+      width: 100%;
+      flex-direction: row;
+      overflow-x: auto;
+      padding: 10px;
+      border-right: none;
+      border-bottom: 1px solid var(--warm-gray);
+      position: sticky;
+      top: 68px;
+      z-index: 90;
+      background: #fff;
+    }
+    .sidebar-link {
+      padding: 8px 16px;
+      white-space: nowrap;
+      font-size: 13px;
+    }
+    .main-content {
+      padding: 1.5rem;
+    }
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+    .messages-container {
+      grid-template-columns: 1fr;
+      height: 600px;
+    }
+    .inbox-list {
+      border-right: none;
+      border-bottom: 1px solid var(--warm-gray);
+      height: 200px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .nav-right span { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="index.html">
+    <img src="image/rydemycar.png" alt="RydeMyCar" class="logo-img">
+  </a>
+  <div class="nav-right">
+    <div style="position: relative; margin-right: 1.5rem; cursor: pointer;" onclick="showSection('messages', document.querySelector('.sidebar-link[onclick*=\'messages\']'))">
+      <i data-lucide="message-square"></i>
+      <span class="nav-badge">1</span>
+    </div>
+    <span style="font-size: 14px; font-weight: 600; margin-right: 1rem;">Welcome, Host</span>
+    <a href="login.html" class="nav-link">Logout</a>
+  </div>
+</nav>
+
+<div class="dashboard-wrapper">
+  <aside class="sidebar">
+    <a href="#" class="sidebar-link active" onclick="showSection('dashboard', this)"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+    <a href="#" class="sidebar-link" onclick="showSection('manage-vehicles', this)"><i data-lucide="car"></i> Manage Vehicles</a>
+    <a href="#" class="sidebar-link" onclick="showSection('bookings', this)"><i data-lucide="calendar"></i> Bookings</a>
+    <a href="#" class="sidebar-link" onclick="showSection('earnings', this)"><i data-lucide="wallet"></i> Earnings</a>
+    <a href="#" class="sidebar-link" onclick="showSection('messages', this)" style="position: relative;"><i data-lucide="message-square"></i> Messages <span class="nav-badge" style="top: 12px; right: 12px;">1</span></a>
+    <a href="#" class="sidebar-link" onclick="showSection('my-reviews', this)"><i data-lucide="star"></i> My Reviews</a>
+    <a href="#" class="sidebar-link" onclick="showSection('notifications', this)"><i data-lucide="bell"></i> Notifications</a>
+  </aside>
+
+  <main class="main-content">
+    <!-- Dashboard Section -->
+    <div id="dashboard" class="content-section active">
+      <div class="dash-header">
+        <h1 class="dash-title">Host Dashboard</h1>
+        <button class="btn-add-vehicle" onclick="showSection('add-vehicle')"><i data-lucide="plus"></i> Add New Vehicle</button>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Total Earnings</div>
+          <div class="stat-value">$4,250.00</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Active Listings</div>
+          <div class="stat-value">3 Vehicles</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Upcoming Bookings</div>
+          <div class="stat-value">5</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Host Rating</div>
+          <div class="stat-value">★ 4.9</div>
+        </div>
+      </div>
+
+      <div class="dash-section">
+        <div class="section-heading"><i data-lucide="clock"></i> Recent Activity</div>
+        <p style="color: var(--text-muted); font-size: 14px;">You have no new notifications.</p>
+      </div>
+    </div>
+
+    <!-- Manage Vehicles Section -->
+    <div id="manage-vehicles" class="content-section">
+      <div class="dash-header">
+        <h1 class="dash-title">Manage Vehicles</h1>
+        <button class="btn-add-vehicle" onclick="showSection('add-vehicle')"><i data-lucide="plus"></i> Add New Vehicle</button>
+      </div>
+      <div class="dash-section">
+        <table class="dash-table">
+          <thead>
+            <tr><th>Image</th><th>Vehicle</th><th>Price/Day</th><th>Status</th><th>Action</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><img src="https://images.hgmsites.net/hug/2014-tesla-model-s-p85d-road-test-dec-2014-photo-david-noland_100494834_h.jpg" alt="Tesla"></td>
+              <td>Tesla Model S 2014</td>
+              <td>$120</td>
+              <td><span class="status-pill active">Active</span></td>
+              <td><a href="#" style="color: var(--black); font-weight: 600;">Edit</a></td>
+            </tr>
+            <tr>
+              <td><img src="https://www.cnet.com/a/img/resize/a9f1bfe80e24952559f047679b13d1cf4c05b3a6/hub/2018/11/04/6f812120-613d-4d3d-8944-0e689d7ce356/2018-maserati-ghibli-ogi.jpg?auto=webp&fit=crop&height=900&width=1200" alt="Maserati"></td>
+              <td>Maserati Ghibli 2018</td>
+              <td>$400</td>
+              <td><span class="status-pill active">Active</span></td>
+              <td><a href="#" style="color: var(--black); font-weight: 600;">Edit</a></td>
+            </tr>
+            <tr>
+              <td><div style="width: 60px; height: 40px; background: #eee; border-radius: 4px;"></div></td>
+              <td>Porsche 911 2022</td>
+              <td>$550</td>
+              <td><span class="status-pill pending">Pending Approval</span></td>
+              <td><a href="#" style="color: var(--black); font-weight: 600;">Edit</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Add Vehicle Multi-step Form -->
+    <div id="add-vehicle" class="content-section">
+      <div class="dash-header">
+        <h1 class="dash-title">Add New Vehicle</h1>
+        <div class="completeness-info" style="text-align: right;">Step <span id="current-step-num">1</span> of 7</div>
+      </div>
+
+      <div class="dash-section">
+        <form id="vehicleForm">
+          <!-- Step 1: Basic Info -->
+          <div class="listing-step active" id="l-step-1">
+            <h3 style="margin-bottom: 1.5rem;">Basic Information</h3>
+            <div class="form-grid">
+              <div class="form-group"><label>Vehicle Type</label><select><option>Car</option><option>Motorcycle</option><option>Scooter</option><option>Van</option></select></div>
+              <div class="form-group"><label>Make</label><input type="text" placeholder="e.g. BMW"></div>
+              <div class="form-group"><label>Model</label><input type="text" placeholder="e.g. X5"></div>
+              <div class="form-group"><label>Year</label><input type="number" placeholder="2024"></div>
+            </div>
+          </div>
+
+          <!-- Step 2: Details -->
+          <div class="listing-step" id="l-step-2">
+            <h3 style="margin-bottom: 1.5rem;">Technical Specs & Features</h3>
+            <div class="form-grid">
+              <div class="form-group"><label>Transmission</label><select><option>Automatic</option><option>Manual</option></select></div>
+              <div class="form-group"><label>Fuel Type</label><select><option>Gasoline</option><option>Electric</option><option>Hybrid</option><option>Diesel</option></select></div>
+              <div class="form-group"><label>Mileage</label><input type="text" placeholder="e.g. 15,000 miles"></div>
+              <div class="form-group"><label>Seats</label><input type="number" placeholder="5"></div>
+            </div>
+            <label style="font-size: 12px; font-weight: 700;">Key Features</label>
+            <div class="features-grid">
+              <div class="feature-item"><input type="checkbox"> AC</div>
+              <div class="feature-item"><input type="checkbox"> GPS</div>
+              <div class="feature-item"><input type="checkbox"> Bluetooth</div>
+              <div class="feature-item"><input type="checkbox"> Child Seat</div>
+              <div class="feature-item"><input type="checkbox"> Helmet</div>
+              <div class="feature-item"><input type="checkbox"> USB Port</div>
+            </div>
+          </div>
+
+          <!-- Step 3: Description & Rules -->
+          <div class="listing-step" id="l-step-3">
+            <h3 style="margin-bottom: 1.5rem;">Description & Rules</h3>
+            <div class="form-group"><label>Detailed Description</label><textarea rows="4" placeholder="Tell renters what makes your vehicle special..."></textarea></div>
+            <div class="form-group"><label>Rental Rules</label><textarea rows="4" placeholder="e.g. No smoking, pet policy, fuel refill requirements..."></textarea></div>
+          </div>
+
+          <!-- Step 4: Photos -->
+          <div class="listing-step" id="l-step-4">
+            <h3 style="margin-bottom: 1.5rem;">Photos & Videos</h3>
+            <div class="upload-area">
+              <i data-lucide="image" style="width: 48px; height: 48px; color: var(--text-muted); margin-bottom: 10px;"></i>
+              <p>Drag & drop photos here or <strong>browse</strong></p>
+              <p style="font-size: 12px; color: var(--text-muted); margin-top: 5px;">Upload at least 3 high-quality photos</p>
+            </div>
+            <div id="photo-previews" style="display: flex; gap: 10px; margin-top: 20px;"></div>
+          </div>
+
+          <!-- Step 5: Pricing -->
+          <div class="listing-step" id="l-step-5">
+            <h3 style="margin-bottom: 1.5rem;">Pricing</h3>
+            <div class="form-grid">
+              <div class="form-group"><label>Daily Rate ($)</label><input type="number" placeholder="100"></div>
+              <div class="form-group"><label>Hourly Rate ($)</label><input type="number" placeholder="15"></div>
+              <div class="form-group"><label>Weekly Discount (%)</label><input type="number" placeholder="10"></div>
+            </div>
+            <div style="background: var(--section-bg); padding: 1rem; border-radius: 8px; font-size: 13px;">
+              <i data-lucide="info" style="width: 16px; height: 16px; margin-right: 5px;"></i> You can set special pricing for holidays in the next step.
+            </div>
+          </div>
+
+          <!-- Step 6: Availability -->
+          <div class="listing-step" id="l-step-6">
+            <h3 style="margin-bottom: 1.5rem;">Availability Calendar</h3>
+            <p style="font-size: 14px; margin-bottom: 1rem; color: var(--text-muted);">Select dates to block or set as unavailable.</p>
+            <div class="map-placeholder">
+              [ Interactive Calendar Interface ]
+            </div>
+          </div>
+
+          <!-- Step 7: Location -->
+          <div class="listing-step" id="l-step-7">
+            <h3 style="margin-bottom: 1.5rem;">Vehicle Location</h3>
+            <div class="form-group">
+              <label>Pick-up Address</label>
+              <input type="text" placeholder="Enter full address">
+            </div>
+            <div class="map-placeholder">
+              <i data-lucide="map-pin" style="margin-right: 8px;"></i> Map Integration Placeholder
+            </div>
+          </div>
+
+          <div class="form-nav">
+            <button type="button" class="btn-add-vehicle" style="background: var(--warm-gray); color: var(--black);" id="listing-back" onclick="changeListingStep(-1)">Back</button>
+            <button type="button" class="btn-add-vehicle" id="listing-next" onclick="changeListingStep(1)">Next Step</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Bookings Section -->
+    <div id="bookings" class="content-section">
+      <h1 class="dash-title">Bookings</h1>
+      <div class="dash-section">
+        <table class="dash-table">
+          <thead>
+            <tr><th>Renter</th><th>Vehicle</th><th>Dates</th><th>Earnings</th><th>Status</th><th>Actions</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>John Doe</strong></td>
+              <td>Tesla Model S</td>
+              <td>May 13 - 15</td>
+              <td>$240.00</td>
+              <td><span class="status-pill pending">Pending</span></td>
+              <td>
+                <button class="btn-primary" onclick="updateBookingStatus(this, 'confirmed')" style="padding: 4px 12px; font-size: 11px;">Approve</button>
+                <button class="btn-primary" style="padding: 4px 12px; font-size: 11px; background: #eee; color: #000;">Decline</button>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Sarah Jane</strong></td>
+              <td>Maserati Ghibli</td>
+              <td>May 20 - 21</td>
+              <td>$800.00</td>
+              <td><span class="status-pill confirmed">Confirmed</span></td>
+              <td><a href="#" style="color: var(--black); font-weight: 600; font-size: 12px;">Manage</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Earnings Section -->
+    <div id="earnings" class="content-section">
+      <h1 class="dash-title">Earnings</h1>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Pending Payouts (Escrow)</div>
+          <div class="stat-value">$1,040.00</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Released Payouts</div>
+          <div class="stat-value">$3,210.00</div>
+        </div>
+      </div>
+
+      <div class="dash-section">
+        <h3 style="margin-bottom: 1.5rem;">Payout History</h3>
+        <table class="dash-table">
+          <thead>
+            <tr><th>Booking</th><th>Total Paid</th><th>Commission (10%)</th><th>Your Payout</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Tesla Model S - John D.</td>
+              <td>$275.00</td>
+              <td>-$27.50</td>
+              <td><strong>$247.50</strong></td>
+              <td><span class="status-pill pending">Pending (Escrow)</span></td>
+            </tr>
+            <tr>
+              <td>Maserati - Sarah J.</td>
+              <td>$800.00</td>
+              <td>-$80.00</td>
+              <td><strong>$720.00</strong></td>
+              <td><span class="status-pill active">Released</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="dash-section">
+        <h3>Payout Settings</h3>
+        <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 1rem;">Configure your bank account to receive funds after rental completion.</p>
+        
+        <div class="bank-card">
+          <form>
+            <div class="form-grid">
+              <div class="form-group"><label>Bank Name</label><input type="text" placeholder="e.g. BDO, BPI"></div>
+              <div class="form-group"><label>Account Holder Name</label><input type="text" placeholder="John Doe"></div>
+            </div>
+            <div class="form-grid">
+              <div class="form-group"><label>Account Number</label><input type="text" placeholder="0000 0000 0000"></div>
+              <div class="form-group"><label>Swift/BIC Code</label><input type="text" placeholder="Optional"></div>
+            </div>
+            <button type="button" class="btn-primary">Save Payout Details</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- My Reviews Section -->
+    <div id="my-reviews" class="content-section">
+      <h1 class="dash-title">My Reviews</h1>
+      <div class="dash-section">
+        <div class="review-card">
+          <div class="review-header">
+            <div class="review-user">
+              <div class="avatar" style="width: 40px; height: 40px; background: var(--black); color: #fff;">JD</div>
+              <div>
+                <div style="font-weight: 700; font-size: 14px;">Jane D.</div>
+                <div style="font-size: 11px; color: var(--text-muted);">Tesla Model S • May 2025</div>
+              </div>
+            </div>
+            <div class="star-rating">★★★★★</div>
+          </div>
+          <p class="review-text">The Tesla was in pristine condition. Mike was incredibly helpful with the airport pickup. Highly recommend!</p>
+          
+          <div id="response-area-1" style="margin-top: 1rem;">
+            <div class="review-response">
+              <strong>My Response:</strong> Glad you enjoyed the Ryde, Jane! Hope to see you again.
+              <a href="#" style="margin-left: 10px; color: var(--text-muted); font-size: 11px;">Edit</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-card">
+          <div class="review-header">
+            <div class="review-user">
+              <div class="avatar" style="width: 40px; height: 40px; background: var(--section-bg); color: var(--black);">SB</div>
+              <span style="font-weight: 700; font-size: 14px;">Sam B.</span>
+            </div>
+            <div class="star-rating">★★★★☆</div>
+          </div>
+          <p class="review-text">Great car, but pickup was delayed by 10 minutes. Otherwise perfect.</p>
+          <button class="btn-primary" style="margin-top: 1rem; padding: 6px 12px; font-size: 11px; background: var(--black); color: #fff;">Respond to Review</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Messages Section -->
+    <div id="messages" class="content-section">
+      <h1 class="dash-title">Messages</h1>
+      <div class="messages-container">
+        <div class="inbox-list">
+          <div class="inbox-item active unread">
+            <div class="avatar" style="width: 40px; height: 40px; background: var(--black); color: #fff;">JD</div>
+            <div class="inbox-info">
+              <div class="inbox-header"><span class="inbox-name">John Doe</span><span class="inbox-time">09:30 AM</span></div>
+              <div class="inbox-preview">Hi Mike! I'll be arriving at the airport...</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="chat-window">
+          <div class="chat-header">
+            <div class="avatar" style="width: 32px; height: 32px; background: var(--black); color: #fff; font-size: 11px;">JD</div>
+            <div>
+              <div style="font-weight: 700; font-size: 14px;">John Doe</div>
+              <div style="font-size: 11px; color: var(--text-muted);">Last seen 10m ago</div>
+            </div>
+          </div>
+          
+          <div class="chat-messages" id="host-chat-box">
+            <div class="message-bubble sent">
+              Hi! Thanks for booking my Tesla. Will you be arriving at the airport or downtown?
+              <span class="message-time">09:15 AM</span>
+            </div>
+            <div class="message-bubble received">
+              Hi Mike! I'll be arriving at the airport around 10 AM.
+              <span class="message-time">09:30 AM</span>
+            </div>
+          </div>
+          
+          <div class="chat-footer">
+            <button style="background: none; border: none; color: var(--text-muted); cursor: pointer;"><i data-lucide="paperclip"></i></button>
+            <input type="text" placeholder="Type a message..." id="host-message-input">
+            <button class="btn-primary" style="padding: 10px 20px; font-size: 13px;" onclick="hostSendMessage()">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notifications Section -->
+    <div id="notifications" class="content-section">
+      <h1 class="dash-title">Notifications</h1>
+      <div class="dash-section">
+        <p style="color: var(--text-muted);">Your vehicle "Tesla Model S" was recently viewed 45 times.</p>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+  lucide.createIcons();
+
+  let currentListingStep = 1;
+
+  function showSection(sectionId, element) {
+    // Hide all sections
+    document.querySelectorAll('.content-section').forEach(section => {
+      section.classList.remove('active');
+    });
+    
+    // Show selected section
+    const target = document.getElementById(sectionId);
+    if (target) target.classList.add('active');
+
+    // Update sidebar active state
+    document.querySelectorAll('.sidebar-link').forEach(link => {
+      link.classList.remove('active');
+      // If element is not provided (called from a button), find the link manually
+      if (!element && link.getAttribute('onclick') && link.getAttribute('onclick').includes(`'${sectionId}'`)) {
+          link.classList.add('active');
+      }
+    });
+    
+    if (element) element.classList.add('active');
+  }
+
+  function changeListingStep(n) {
+    const steps = document.querySelectorAll('.listing-step');
+    
+    // If moving forward and on last step, submit
+    if (n === 1 && currentListingStep === 7) {
+      alert('Listing created successfully! It is now pending approval.');
+      showSection('manage-vehicles');
+      return;
+    }
+
+    // Update step counter
+    currentListingStep += n;
+    if (currentListingStep < 1) currentListingStep = 1;
+    if (currentListingStep > 7) currentListingStep = 7;
+
+    // UI Updates
+    steps.forEach((s, idx) => s.classList.toggle('active', idx === (currentListingStep - 1)));
+    document.getElementById('current-step-num').innerText = currentListingStep;
+    
+    const nextBtn = document.getElementById('listing-next');
+    const backBtn = document.getElementById('listing-back');
+    
+    nextBtn.innerText = currentListingStep === 7 ? 'Complete Listing' : 'Next Step';
+    backBtn.style.visibility = currentListingStep === 1 ? 'hidden' : 'visible';
+  }
+</script>
+</body>
+</html>

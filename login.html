@@ -124,7 +124,7 @@
       <h1 class="login-title">Ryde<span>My</span>Car</h1>
       <p class="login-subtitle">Welcome back! Please enter your details.</p>
     </div>
-    <form action="#">
+    <form onsubmit="handleLogin(event)">
       <div class="form-field">
         <label for="email">Email Address</label>
         <input type="email" id="email" placeholder="john@example.com" required>
@@ -143,6 +143,25 @@
 <script src="https://unpkg.com/lucide@latest"></script>
 <script>
   lucide.createIcons();
+
+  function handleLogin(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    // In a real application, you would send credentials to a server for authentication.
+    // For this demonstration, we'll simulate a successful login and redirect based on the stored role.
+
+    const userRole = localStorage.getItem('userRole'); // Retrieve the stored role
+
+    if (userRole === 'renter') {
+      window.location.href = 'renter.html';
+    } else if (userRole === 'host') {
+      window.location.href = 'host.html';
+    } else {
+      // Default or error case if no role is found (e.g., user directly navigated to login without registering)
+      alert('Login successful, but user role not found. Redirecting to Renter Dashboard by default.');
+      window.location.href = 'renter.html'; // Default redirect
+    }
+  }
 </script>
 </body>
 </html>
