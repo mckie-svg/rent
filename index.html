@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RydeMyCar – Easy & Fast Way to Rent Cars</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link rel="shortcut icon" href="image/rydemycar.png" type="image/x-icon">
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#">
+    <img src="image/rydemycar.png" alt="RydeMyCar" class="logo-img">
+  </a>
+
+  <ul class="nav-links" id="nav-menu">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Cars</a></li>
+    <li><a href="#">Pricing</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <a href="login.html" class="nav-link">Log In</a>
+    <a href="registration.html" style="text-decoration: none;"><button class="btn-host">Sign Up</button></a>
+    <button class="menu-btn" id="menu-toggle"><i data-lucide="menu"></i></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left fade-in">
+    <span class="hero-badge"><i data-lucide="sparkles"></i> #1 Car Sharing Platform</span>
+    <h1 class="hero-title">
+      Welcome<br>To <span>RydeMyCar</span>
+    </h1>
+    <p class="hero-sub">Easy &amp; fast way to rent your Cars</p>
+    <p class="hero-desc">Explore our vast collection of cars and find your perfect match. Easy browsing, quick booking.</p>
+    <a href="#cars" class="btn-primary">Browse a Car →</a>
+  </div>
+
+  <div class="hero-right">
+    
+    <div class="hd-badge">HD</div>
+
+    <!-- Car Image -->
+    <img 
+        src="image/BMW-X4-Transparent-PNG.png" 
+        alt="Luxury Car"
+        class="hero-car"
+    >
+
+</div>
+</section>
+
+<!-- SEARCH BAR -->
+<div class="search-section fade-in delay-2">
+  <div class="search-field">
+    <label>Location</label>
+    <input type="text" placeholder="Where do you go?" />
+  </div>
+  <div class="search-field">
+    <label>Pick-up</label>
+    <input type="text" placeholder="Add date, Add time" />
+  </div>
+  <div class="search-field">
+    <label>Drop-off</label>
+    <input type="text" placeholder="Add date, Add time" />
+  </div>
+  <button class="btn-search">Search</button>
+</div>
+
+<!-- VEHICLE TYPE -->
+<section class="type-section fade-in delay-3">
+  <h2 class="section-title">Find <span>Cars</span> by type</h2>
+  <p class="section-sub">Explore the world's largest Car sharing marketplace</p>
+
+  <p style="font-size:14px;font-weight:600;color:#333;margin-bottom:1rem;text-align:left;padding:0 0.5rem;">Choose your drive</p>
+  <div class="type-grid">
+    <div class="type-card active" onclick="setType(this)">
+      <span class="type-icon"><i data-lucide="car"></i></span>
+      <span class="type-label">Car</span>
+    </div>
+    <div class="type-card" onclick="setType(this)">
+      <span class="type-icon"><i data-lucide="bike"></i></span>
+      <span class="type-label">Motorcycle</span>
+    </div>
+    <div class="type-card" onclick="setType(this)">
+      <span class="type-icon"><i data-lucide="zap"></i></span>
+      <span class="type-label">Scooter</span>
+    </div>
+    <div class="type-card" onclick="setType(this)">
+      <span class="type-icon"><i data-lucide="truck"></i></span>
+      <span class="type-label">Van</span>
+    </div>
+    <div class="type-card" onclick="setType(this)">
+      <span class="type-icon"><i data-lucide="component"></i></span>
+      <span class="type-label">SUV</span>
+    </div>
+  </div>
+</section>
+
+<!-- CARS LISTING -->
+<section class="cars-section" id="cars">
+  <div class="cars-header">
+    <h2 class="cars-title">Choose your car</h2>
+    <button class="btn-view-all">View All</button>
+  </div>
+
+  <div class="cars-grid">
+    <!-- Card 1 -->
+    <div class="car-card fade-in delay-1">
+      <div class="car-img-wrap">
+        <img src="https://images.hgmsites.net/hug/2014-tesla-model-s-p85d-road-test-dec-2014-photo-david-noland_100494834_h.jpg" alt="Tesla Model S" onerror="this.style.display='none';this.parentNode.style.background='#e0ddd6'"/>
+        <span class="car-badge">Featured</span>
+        <button class="car-heart">♡</button>
+      </div>
+      <div class="car-body">
+        <div class="car-type">Sedan</div>
+        <div class="car-name">Tesla Model S 2014</div>
+        <div class="car-specs">
+          <span class="car-spec"><span class="car-spec-icon"><i data-lucide="users"></i></span> 4</span>
+          <span class="car-spec"><span class="car-spec-icon"><i data-lucide="zap"></i></span> Auto</span>
+          <span class="car-spec"><span class="car-spec-icon"><i data-lucide="armchair"></i></span> 4</span>
+          <span class="car-spec"><span class="car-spec-icon"><i data-lucide="leaf"></i></span> Elec</span>
+        </div>
+        <div class="car-footer">
+          <div class="car-price">$120 <span>/day</span></div>
+          <div class="car-rating">★ 4.8</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="car-card fade-in delay-2">
+      <div class="car-img-wrap">
+        <img src="https://www.cnet.com/a/img/resize/a9f1bfe80e24952559f047679b13d1cf4c05b3a6/hub/2018/11/04/6f812120-613d-4d3d-8944-0e689d7ce356/2018-maserati-ghibli-ogi.jpg?auto=webp&fit=crop&height=900&width=1200" alt="Maserati Ghibli" onerror="this.style.display='none';this.parentNode.style.background='#e0ddd6'"/>
+        <span class="car-badge">Featured</span>
+        <button class="car-heart">♡</button>
+      </div>
+      <div class="car-body">
+        <div class="car-type">Luxury</div>
+        <div class="car-name">Maserati Ghibli 2018 – DEPOSIT 2500</div>
+        <div class="car-specs">
+          <span class="car-spec"><span class="car-spec-icon"><i data-lucide="users"></i></span> 4</span>
+          <span class="car-spec"><span class="car-spec-icon"><i data-lucide="settings"></i></span> Auto</span>
+          <span class="car-spec"><span class="car-spec-icon"><i data-lucide="armchair"></i></span> 4</span>
+        </div>
+        <div class="car-footer">
+          <div class="car-price">$400 <span>/day</span></div>
+          <div class="car-rating">★ 4.9</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="car-card fade-in delay-3">
+      <div class="car-img-wrap">
+        <img src="https://images.ctfassets.net/c9t6u0qhbv9e/2018DodgeDurangoTestDriveReviewsummary/c464003491594f47b97b81e6bfaa1e00/2018_Dodge_Durango_Test_Drive_Review_summaryImage.jpeg" alt="Dodge Durango" onerror="this.style.display='none';this.parentNode.style.background='#e0ddd6'"/>
+        <button class="car-heart">♡</button>
+      </div>
+      <div class="car-body">
+        <div class="car-type">SUV</div>
+        <div class="car-name">2014 Dodge Durango GT AWD</div>
+        <div class="car-specs">
+          <span class="car-spec"><span class="car-spec-icon"><i data-lucide="users"></i></span> 7</span>
+          <span class="car-spec"><span class="car-spec-icon"><i data-lucide="settings"></i></span> Auto</span>
+          <span class="car-spec"><span class="car-spec-icon"><i data-lucide="armchair"></i></span> 7</span>
+        </div>
+        <div class="car-footer">
+          <div class="car-price">$150 <span>/day</span></div>
+          <div class="car-rating">★ 4.6</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="car-card fade-in delay-4">
+      <div class="car-img-wrap">
+        <img src="https://media.ed.edmunds-media.com/dodge/charger/2018/oem/2018_dodge_charger_sedan_srt-392_fq_oem_2_1600.jpg" alt="Dodge Charger" onerror="this.style.display='none';this.parentNode.style.background='#e0ddd6'"/>
+        <button class="car-heart">♡</button>
+      </div>
+      <div class="car-body">
+        <div class="car-type">Muscle</div>
+        <div class="car-name">2018 Dodge Charger GT – The Ultimate Driving Experience</div>
+        <div class="car-specs">
+          <span class="car-spec"><span class="car-spec-icon"><i data-lucide="users"></i></span> 5</span>
+          <span class="car-spec"><span class="car-spec-icon"><i data-lucide="fuel"></i></span> Gas</span>
+          <span class="car-spec"><span class="car-spec-icon"><i data-lucide="armchair"></i></span> 5</span>
+        </div>
+        <div class="car-footer">
+          <div class="car-price">$80 <span>/day</span></div>
+          <div class="car-rating">★ 4.7</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY RYDEMYCAR -->
+<section class="why-section">
+  <h2 class="why-title">Why RydeMyCar?</h2>
+  <p class="why-sub">The smarter, safer way to hit the road</p>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon"><i data-lucide="lock"></i></div>
+      <div class="why-card-title">Escrow-Protected Payments</div>
+      <div class="why-card-desc">Your funds are held securely and only released after rental completion – total peace of mind for renters and hosts.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon"><i data-lucide="check-circle"></i></div>
+      <div class="why-card-title">Verified Hosts & Renters</div>
+      <div class="why-card-desc">Multi-step ID, phone, and email verification ensures every user on the platform is trustworthy and accountable.</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon"><i data-lucide="shield-check"></i></div>
+      <div class="why-card-title">Insurance Options</div>
+      <div class="why-card-desc">Choose from basic to premium rental insurance coverage, integrated directly into your booking checkout.</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section">
+  <h2 class="how-title">How It <span>Works</span></h2>
+  <p class="how-sub">Renting a car has never been this simple</p>
+  <div class="how-steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-title">Search</div>
+      <div class="step-desc">Enter your location and dates to browse available vehicles nearby.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-title">Choose</div>
+      <div class="step-desc">Filter by type, price, and features. Read reviews from real renters.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-title">Book & Pay</div>
+      <div class="step-desc">Securely pay via escrow. Funds are protected until your rental is complete.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-title">Enjoy the Ride</div>
+      <div class="step-desc">Pick up your car and hit the road. Leave a review when you're done!</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">RydeMyCar</div>
+  <ul class="footer-links">
+    <li><a href="#">Privacy Policy</a></li>
+    <li><a href="#">Terms of Service</a></li>
+    <li><a href="#">Trust & Safety</a></li>
+    <li><a href="#">FAQ</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <div style="font-size:12px;">© 2025 RydeMyCar. All rights reserved.</div>
+</footer>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+  lucide.createIcons();
+
+  // Mobile menu toggle
+  const menuToggle = document.getElementById('menu-toggle');
+  const navMenu = document.getElementById('nav-menu');
+  menuToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
+  });
+
+  // Hide/Show navbar on scroll
+  let lastScrollY = window.scrollY;
+  const navbar = document.querySelector('nav');
+
+  window.addEventListener('scroll', () => {
+    const currentScrollY = window.scrollY;
+    
+    if (currentScrollY > lastScrollY && currentScrollY > 100) {
+      navbar.classList.add('nav-hidden');
+    } else {
+      navbar.classList.remove('nav-hidden');
+    }
+    
+    lastScrollY = currentScrollY;
+  });
+
+  function setType(el) {
+    document.querySelectorAll('.type-card').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  // Wishlist toggle
+  document.querySelectorAll('.car-heart').forEach(btn => {
+    btn.addEventListener('click', function() {
+      this.textContent = this.textContent === '♡' ? '♥' : '♡';
+      this.style.color = this.textContent === '♥' ? '#E8402A' : '';
+    });
+  });
+
+  // Intersection observer for fade-in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.car-card, .why-card, .step').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
