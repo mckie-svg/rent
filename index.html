@@ -26,8 +26,15 @@
   </ul>
 
   <div class="nav-right">
-    <a href="login.html" class="nav-link">Log In</a>
-    <a href="registration.html" style="text-decoration: none;"><button class="btn-host">Sign Up</button></a>
+    <a href="login.html" class="nav-link auth-link">Log In</a>
+    <a href="registration.html" class="auth-link" style="text-decoration: none;"><button class="btn-host">Sign Up</button></a>
+    <div class="mobile-auth-dropdown">
+      <button class="mobile-profile-link" id="profile-dropdown-toggle"><i data-lucide="user"></i></button>
+      <div class="dropdown-menu" id="profile-dropdown">
+        <a href="login.html">Log In</a>
+        <a href="registration.html">Sign Up</a>
+      </div>
+    </div>
     <button class="menu-btn" id="menu-toggle"><i data-lucide="menu"></i></button>
   </div>
 </nav>
@@ -263,7 +270,7 @@
     <li><a href="#">FAQ</a></li>
     <li><a href="#">Contact</a></li>
   </ul>
-  <div style="font-size:12px;">© 2025 RydeMyCar. All rights reserved.</div>
+  <div style="font-size:12px;">© 2026 RydeMyCar. All rights reserved.</div>
 </footer>
 
 <script src="https://unpkg.com/lucide@latest"></script>
@@ -275,6 +282,23 @@
   const navMenu = document.getElementById('nav-menu');
   menuToggle.addEventListener('click', () => {
     navMenu.classList.toggle('active');
+  });
+
+  // Profile dropdown toggle for mobile
+  const profileToggle = document.getElementById('profile-dropdown-toggle');
+  const profileDropdown = document.getElementById('profile-dropdown');
+
+  profileToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    profileDropdown.classList.toggle('active');
+    navMenu.classList.remove('active'); // Close main menu if profile is clicked
+  });
+
+  // Close dropdowns when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!profileDropdown.contains(e.target) && e.target !== profileToggle) {
+      profileDropdown.classList.remove('active');
+    }
   });
 
   // Hide/Show navbar on scroll
