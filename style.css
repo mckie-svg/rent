@@ -453,26 +453,46 @@
     background: #fff;
     border: 2px solid var(--warm-gray);
     border-radius: 12px;
-    padding: 1.2rem 2rem;
+    padding: 1.5rem 2.2rem;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 8px;
     min-width: 120px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
   }
 
   .type-card:hover, .type-card.active {
     border-color: var(--gold);
     background: #FFF8EC;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(232, 160, 32, 0.15);
   }
 
   .type-icon {
-    font-size: 28px;
-    color: var(--gold-dark);
+    width: 100px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
   }
-  .type-icon .lucide { width: 32px; height: 32px; }
+
+  .type-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.08));
+  }
+
+  .type-card:hover .type-icon img,
+  .type-card.active .type-icon img {
+    transform: scale(1.15);
+    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.15));
+  }
 
   .type-label {
     font-size: 13px;
